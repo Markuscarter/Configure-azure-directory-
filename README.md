@@ -42,7 +42,7 @@ This tutorial outlines the implementation of  Active Directory within Azure Virt
 <h2>Deployment and Configuration Steps</h2>
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/V2G7hj1.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
 Step 1: Create a Resource Group
@@ -54,7 +54,7 @@ Click Review + Create, and then Create to deploy the resource group.</p>
 <br />
 
 <p>
-<![Screenshot 2025-01-18 at 4 24 37 PM](https://github.com/user-attachments/assets/b9c6b7f5-b232-43b8-a9d2-e20d2c3f77c9)>
+<img src="https://i.imgur.com/v3XhUhr.png"height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
 Step 2: Create a Virtual Network
@@ -63,15 +63,12 @@ In the Basics tab, enter:
 Name: ADVirtualNetwork.
 Region: Same as the resource group (e.g., East US).
 Associate it with the resource group created in Step 1.
-Under the IP Addresses tab, configure:
-Address space: Enter a CIDR range (e.g., 10.0.0.0/16).
-Subnets: Add a subnet (e.g., 10.0.0.0/24).
 Click Review + Create, then Create.
 </p>
 <br />
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/9jqP8hw.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
 Step 3: Create a Domain Controller VM (Windows Server 2022) Named DC-1
@@ -85,27 +82,12 @@ Size: Choose a size (e.g., Standard DS2_v2).
 Administrator Account: Set up a username and password.
 Under the Networking tab:
 Select the ADVirtualNetwork created in Step 2.
-Assign it to the Subnet (e.g., 10.0.0.0/24).
+Assign it to the Subnet (e.g., 10.0.0.0/24) Or leave it at default.
 Click Review + Create, then Create to deploy the VM..
 </p>
-<br />
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Step 4: After VM is Created, Set Domain Controller’s NIC Private IP Address to Be Static
-Once DC-1 is deployed, navigate to Virtual Machines > DC-1 > Networking.
-Under Network Interface, click the name of the network interface.
-Go to IP Configurations and select the configuration (e.g., ipconfig1).
-Set Assignment to Static and confirm the current private IP address.
-Save the configuration.
 
-</p>
-<br /><p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
 <p>
-Step 5: Set Up Client-1 in Azure - Create the Client VM (Windows 10) Named Client-1
+Step 4: Set Up Client-1 in Azure - Create the Client VM (Windows 10) Named Client-1
 Navigate to Virtual Machines and click Create.
 In the Basics tab:
 Choose the resource group created in Step 1.
@@ -118,26 +100,32 @@ Under the Networking tab:
 Select the ADVirtualNetwork created in Step 2.
 Assign it to the Subnet (e.g., 10.0.0.0/24).
 Click Review + Create, then Create to deploy the VM.
+
 </p>
 <br /><p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/HkusWMU.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+</p>
+<p>
+Step 5: After VM is Created, Set Domain Controller’s NIC Private IP Address to Be Static
+Once DC-1 is deployed, navigate to Virtual Machines > DC-1 > Networking.
+Under Network Interface, click the name of the network interface.
+Go to IP Configurations and select the configuration (e.g., ipconfig1).
+Set Assignment to Static and confirm the current private IP address.
+Save the configuration.
+</p>
+<br /><p>
+<img src="https://i.imgur.com/DZAdCDM.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
 Step 6: Attach It to the Same Region and Virtual Network as DC-1
 Ensure Client-1 is associated with the same Region and ADVirtualNetwork created in Steps 1 and 2.
 
 </p>
-<br />
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
+
 <p>
 Step 7: From Azure Portal, Restart Client-1
 Navigate to Virtual Machines > Client-1.
 Click Restart to ensure all configurations are applied.
-</p>
-<br /><p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
 Step 8: Log In to Client-1
@@ -145,29 +133,29 @@ Use Remote Desktop (RDP) to log in to Client-1 using the credentials set during 
 
 </p>
 <br /><p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/NqY68Wi.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
 Step 9: Ping the DC-1's Private IP Address
 Open Command Prompt on Client-1.
 Run the command:
-php
-Copy
-Edit
 ping <DC-1 Private IP>
-Replace <DC-1 Private IP> with the private IP address you assigned to DC-1 in Step 4 (e.g., 10.0.0.4).
-Verify that the pings are successful, indicating connectivity between Client-1 and DC-1.
+  </p>
+<br /><p>
+<img src="https://i.imgur.com/F2q5Gc1.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+</p>
+<br />
+<p>
+<img src="https://i.imgur.com/qs7g2qo.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+</p>
 </p>
 <br /><p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/vRzjkao.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
-Step 10: From Client-1, Open PowerShell and Run ipconfig /all
+Step 10: Switch to Client-1 and then From Client-1, Open PowerShell and Run ipconfig /all
 Open PowerShell on Client-1.
 Run the following command:
-bash
-Copy
-Edit
 ipconfig /all
 Check the DNS Server entry in the output:
 Confirm it shows the private IP address of DC-1 (e.g., 10.0.0.4).
